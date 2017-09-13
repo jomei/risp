@@ -1,8 +1,7 @@
 use std::collections::HashMap;
 
 fn main() {
-    let mut h:HashMap<&str, &str>;
-    h = HashMap::new();
-    h.insert("foo", "bar");
-
+    let args: Vec<String> = env::args().collect();
+    let str: &str = args[0];
+    println!(str);
 }
