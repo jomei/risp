@@ -1,4 +1,5 @@
 mod parser;
+mod tokenizer;
 
 pub struct Lisp {
     eval: Eval,
