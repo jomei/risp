@@ -39,12 +39,12 @@ struct TokenizerError(String);
 
 impl TryFrom<char> for Token {
     type Error = TokenizerError;
-    fn try_from(some_char: char) -> Result<Token, Self::Error> {
-        match some_char {
+    fn try_from(c: char) -> Result<Token, Self::Error> {
+        match c {
             '(' => Token::LeftParenthesis,
             ')' => Token::RightParenthesis,
             '\'' => Token::Quote,
-             _ => TokenizerError(String::from("abc"))
+             _ => TokenizerError(format!("Unexpected token: {}", c))
         }
     }
 }
