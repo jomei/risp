@@ -57,26 +57,24 @@ impl <'a> Tokenizer<'a> {
 
     pub fn tokenize(&mut self) -> Result<Vec<TokenWrapper>, TokenizerError> {
         let mut tokens = Vec::new();
-        while let Some(c) = self.context.next() {
+        while let Some(c) = self.context.peek() {
             if c.is_alphanumeric() {
-                tokens.push(TokenWrapper{token: Token::Int()})
+                tokens.push(TokenWrapper{token: Token::Int(parse_int(self.context))})
             }
+
+            let c1 = self.context.next();
+            tokens.push(c1.try_into::<Token>().unwrap())
+
         }
     }
 
-    fn parse_int(first: char, chars: Context) -> i32 {
+    fn parse_int(&mut chars: Context) -> i32 {
         let mut s = String::new();
-        s.push(first);
-        while let Some(c) = chars.next() {
-
+        while let Some(c) = chars.peek() && c.is_alphanumeric() {
+            let Some(c1) = chars.next();
+            s.push(с1)
         }
-    }
 
-    fn token_hash() -> HashMap<char, Token> {
-        let mut h: HashMap<char, Token> = HashMap::new();
-        h.insert('(', Token::LeftParenthesis);
-        h.insert(')', Token::RightParenthesis);
-        h.insert('\'', Token::Quote);
-        return h;
+        return s.parse::<i32>().unwrap();
     }
 }
