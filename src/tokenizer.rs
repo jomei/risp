@@ -1,4 +1,5 @@
 use std::str::Chars;
+use std::convert::TryFrom;
 
 enum Token {
     LeftParenthesis,
@@ -59,7 +60,7 @@ impl <'a> Tokenizer<'a> {
         let mut tokens = Vec::new();
         while let Some(c) = self.context.peek() {
             if c.is_alphanumeric() {
-                tokens.push(TokenWrapper{token: Token::Int(parse_int(self.context))})
+                tokens.push(TokenWrapper{token: Token::Int(self.parse_int(self.context))})
             }
 
             let c1 = self.context.next();
@@ -70,9 +71,12 @@ impl <'a> Tokenizer<'a> {
 
     fn parse_int(&mut chars: Context) -> i32 {
         let mut s = String::new();
-        while let Some(c) = chars.peek() && c.is_alphanumeric() {
+        while let Some(c) = chars.peek()  {
+            if !c.is_alphanumeric() {
+                return s.parse::<i32>().unwrap();
+            }
             let Some(c1) = chars.next();
-            s.push(с1)
+            s.push(c1)
         }
 
         return s.parse::<i32>().unwrap();

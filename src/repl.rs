@@ -13,7 +13,3 @@ pub fn run() {
         let result = lisp.eval_line(input.as_str());
     }
 }
-
-fn process_line(input: String) {
-
-}
